@@ -8,7 +8,7 @@ export default function Signup() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("http://13.235.17.178:5000/api/createuser", {
+        const response = await fetch("http://13.234.112.218:5000/api/createuser", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
