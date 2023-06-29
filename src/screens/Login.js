@@ -7,7 +7,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://13.234.112.218:5000/api/login", {
+    const response = await fetch("http://13.232.210.249:5000/api/login", {
       // credentials: 'include',
       // Origin:"http://localhost:3000/login",
       method: 'POST',
