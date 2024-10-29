@@ -57,9 +57,10 @@ const Detail = () => {
                         <img src="./arrowUp.png" alt=""/>
                     </div>
                 </div>
-                <button>Block User</button>
+            <button>Block User</button>
+                <button className="logout">Logout</button>
             </div>
         </div>
-    )
-}
+    );
+};
 export default Detail

@@ -5,6 +5,14 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    ::-webkit-scrollbar {
+        width: 5px;
+        background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: black;
+        border-radius: 10px;
+    }
 
     .top {
         padding: 20px;
@@ -63,14 +71,6 @@
         overflow-x:hidden;
         display: flex;
         flex-direction: column;
-        ::-webkit-scrollbar {
-            width: 5px;
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: black;
-            border-radius: 10px;
-        }
 
         .message {
             max-width: 70%;
