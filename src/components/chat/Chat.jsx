@@ -36,13 +36,13 @@ const Chat = () => {
         try{
             await updateDoc(doc(db, "chats", chatId), {
                 messages: arrayUnion({
+                    senderId: currentUser.id,
                     text,
                     createdAt: new Date(),
-                    senderId: currentUser.id
                 }),
             });
             const userIDs = [currentUser.id,user.id];
-            userIDs.forEach(async (id) => {
+            for (const id of userIDs) {
 
             const userChatsRef = doc(db, "userchats", id);
             const userChatsSnapshot = await getDoc(userChatsRef);
@@ -50,13 +50,13 @@ const Chat = () => {
                 const userChatsData = userChatsSnapshot.data();
                 const chatIndex = userChatsData.chats.findIndex((c) => c.chatId === chatId);
                 userChatsData.chats[chatIndex].lastMessage = text;
-                userChatsData.chats[chatIndex].isSeen = id === currentUser.id ? true : false;
+                userChatsData.chats[chatIndex].isSeen = id === currentUser.id;
                 userChatsData.chats[chatIndex].updatedAt = Date.now();
                 await updateDoc(userChatsRef, {
                     chats: userChatsData.chats,
                 });
             }
-            });
+            }
         }catch (err) {
             console.log(err)
         }
@@ -84,7 +84,7 @@ const Chat = () => {
                         <div className="texts">
                             {message.img && <img src={message.img} alt=""/>}
                             <p>{message.text}</p>
-                            {/*<span>1 min ago</span>*/}
+                            {/*<span>{message}</span>*/}
                         </div>
                     </div>
                 ))}
