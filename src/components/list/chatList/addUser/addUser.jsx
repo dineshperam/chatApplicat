@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import "./addUser.css"
 import {db} from "../../../../lib/firebase.js";
 import {collection, getDocs, query, setDoc, where, serverTimestamp, doc, updateDoc, arrayUnion} from "firebase/firestore";

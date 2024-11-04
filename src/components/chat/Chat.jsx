@@ -7,9 +7,9 @@ import {useChatStore} from "../../lib/chatStore.js";
 import {useUserStore} from "../../lib/userStore.js";
 
 const Chat = () => {
+    const [chat, setChat] = useState([]);
     const [open, setOpen] = useState(false);
     const [text, setText] = useState("");
-    const [chat, setChat] = useState([]);
     const {chatId,user} = useChatStore();
     const {currentUser} = useUserStore();
 
@@ -21,9 +21,7 @@ const Chat = () => {
     useEffect(()=>{
         const unSub = onSnapshot(doc(db,"chats", chatId), (res) => {
             setChat(res.data());
-
         })
-
         return () =>{
             unSub();
         }
@@ -41,8 +39,8 @@ const Chat = () => {
                     text,
                     createdAt: new Date(),
                     senderId: currentUser.id
-                })
-            })
+                }),
+            });
             const userIDs = [currentUser.id,user.id];
             userIDs.forEach(async (id) => {
 
@@ -51,7 +49,6 @@ const Chat = () => {
             if(userChatsSnapshot.exists()) {
                 const userChatsData = userChatsSnapshot.data();
                 const chatIndex = userChatsData.chats.findIndex((c) => c.chatId === chatId);
-
                 userChatsData.chats[chatIndex].lastMessage = text;
                 userChatsData.chats[chatIndex].isSeen = id === currentUser.id ? true : false;
                 userChatsData.chats[chatIndex].updatedAt = Date.now();
@@ -82,16 +79,15 @@ const Chat = () => {
                 </div>
             </div>
             <div className="center">
-                { chat?.messages?.map((message) => {
-
+                { chat?.messages?.map((message) => (
                     <div className="message own" key={message?.createdAt}>
                         <div className="texts">
-                            { message.img && <img src={message.img} alt=""/>}
+                            {message.img && <img src={message.img} alt=""/>}
                             <p>{message.text}</p>
                             {/*<span>1 min ago</span>*/}
                         </div>
                     </div>
-                })}
+                ))}
                 <div ref={endRef}></div>
             </div>
             <div className="bottom">

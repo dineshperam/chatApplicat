@@ -36,23 +36,24 @@ const ChatList = () => {
         }
     },[currentUser.id]);
     const handleSelect = async (chat) => {
-        const userChats = chats.map((item) => {
-            const {user, ...rest} = item;
-            return rest;
-        });
-        const chatIndex = userChats.findIndex((c) => c.chatId === chat.chatId);
-
-        userChats[chatIndex].isSeen = true;
-        const userChatsRef = doc(db, "userchats", currentUser.id);
-        try{
-            await updateDoc(userChatsRef, {
-                chats: userChats
-            })
+        // const userChats = chats.map((item) => {
+        //     const {user, ...rest} = item;
+        //     return rest;
+        // });
+        // const chatIndex = userChats.findIndex((c) => c.chatId === chat.chatId);
+        //
+        // userChats[chatIndex].isSeen = true;
+        // const userChatsRef = doc(db, "userchats", currentUser.id);
+        // try{
+        //     await updateDoc(userChatsRef, {
+        //         chats: userChats
+        //     })
+        // changeChat(chat.chatId, chat.user);
+        // }catch (e) {
+        //     console.log(e)
+        // }
         changeChat(chat.chatId, chat.user);
-        }catch (e) {
-            console.log(e)
-        }
-    }
+    };
     return (
         <div className="chatList">
             <div className="search">
@@ -65,8 +66,7 @@ const ChatList = () => {
             </div>
             {chats.map((chat) => (
             <div className="item" key={chat.chatId} onClick={() => handleSelect(chat)}
-            style={{backgroundColor: chat?.isSeen ? "transparent": "5183fe"}}
-            >
+            style={{backgroundColor: chat?.isSeen ? "transparent": "5183fe"}}>
                 <img src={ chat.user.avatar || "./avatar.png"} alt=""/>
                 <div className="texts">
                     <span>{chat.user.username}</span>
