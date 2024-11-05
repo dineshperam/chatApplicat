@@ -1,12 +1,19 @@
 import "./detail.css"
 import {auth} from "../../lib/firebase.js";
+import {useChatStore} from "../../lib/chatStore.js";
+import {useUserStore} from "../../lib/userStore.js";
 
 const Detail = () => {
+    const {chatId, user, isCurrentUserBlocked, isReceiverBlocked, changeBlock} = useChatStore();
+    const {currentUser} = useUserStore();
+    const handleBlock = () => {
+
+    }
     return (
         <div className="detail">
             <div className="user">
-                <img src="./avatar.png" alt=""/>
-                <h2>John Doe</h2>
+                <img src={user?.avatar || "./avatar.png"} alt=""/>
+                <h2>{user?.username}</h2>
                 <p>Lorem ipsum dolor sit amet</p>
             </div>
             <div className="info">
@@ -57,7 +64,7 @@ const Detail = () => {
                         <img src="./arrowUp.png" alt=""/>
                     </div>
                 </div>
-            <button>Block User</button>
+            <button onClick={handleBlock}>Block User</button>
                 <button className="logout" onClick={() => auth.signOut()}>Logout</button>
             </div>
         </div>

@@ -41,7 +41,6 @@ const ChatList = () => {
             return rest;
         });
         const chatIndex = userChats.findIndex((item) => item.chatId === chat.chatId);
-
         userChats[chatIndex].isSeen = true;
         const userChatsRef = doc(db, "userchats", currentUser.id);
         try{
